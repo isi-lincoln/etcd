@@ -362,6 +362,8 @@ func newGRPCProxyServer(lg *zap.Logger, client *clientv3.Client) *grpc.Server {
 		grpc.StreamInterceptor(grpc_prometheus.StreamServerInterceptor),
 		grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor),
 		grpc.MaxConcurrentStreams(math.MaxUint32),
+		grpc.MaxCallRecvMsgSize(grpcMaxCallRecvMsgSize),
+		grpc.MaxCallSendMsgSize(grpcMaxCallSendMsgSize),
 	)
 
 	pb.RegisterKVServer(server, kvp)
